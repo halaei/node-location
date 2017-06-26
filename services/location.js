@@ -34,6 +34,9 @@ module.exports = {
             if (error !== null) {
                 onError(error);
             } else {
+                if (! Array.isArray(reply)) {
+                    reply = [];
+                }
                 onSuccess(reply.map(function (v) {
                     return JSON.parse(v);
                 }));
