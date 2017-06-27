@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 
 var index = require('./routes/index');
 var location = require('./routes/location');
@@ -20,6 +21,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(validator({
+    customValidators: {
+      isNode: function (value) {
+        return ! Array.isArray(value) && ( typeof(value) === 'string' || parseInt(value) === value);
+      },
+      isLat: function (value) {
+        return ! isNaN(value) && ! Array.isArray(value) && value >= -90 && value <= 90;
+      },
+      isLon: function (value) {
+        return ! isNaN(value) && ! Array.isArray(value) && value >= -180 && value <= 180;
+      },
+      inRange: function (value, min, max) {
+        console.log(value, min, max);
+        return value >= min && value <= max;
+      }
+    }
+}));
 
 app.use('/', index);
 app.use('/location', location);
