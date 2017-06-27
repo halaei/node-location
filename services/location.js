@@ -9,16 +9,22 @@ client.on('error', function (err) {
 module.exports = {
     list_size: 3,
     list_ttl: 3600 * 24,
+    geokey: 'cur',
     list: function (node) {
         return 'nd:'+node;
     },
     push: function (node, location, onSuccess, onError) {
+        console.log(location.lon, location.lat, node);
         var list = this.list(node);
         client.eval([
             lua.push,
-            1,
-            list,
-            JSON.stringify(location), this.list_size, this.list_ttl
+            2,
+            //KEYS[1], KEYS[2]:
+            list,      this.geokey,
+            //ARGV[1],                ARGV[2],        ARGV[3]:
+            JSON.stringify(location), this.list_size, this.list_ttl,
+            //ARGV[4],       ARGV[5],          ARGV[6]:
+            ''+location.lon, ''+location.lat, node,
         ], function (error, reply) {
             if (error !== null) {
                 onError(error);
@@ -52,5 +58,28 @@ module.exports = {
                 onSucces(!!reply);
             }
         })
+    },
+    knn: function (lon, lat, radius, count, onSuccess, onError) {
+        client.georadius(
+            this.geokey,
+            lon, lat, radius, 'm',
+            'WITHCOORD', 'WITHDIST',
+            'COUNT', count,
+            'ASC', function (error, reply) {
+                if (error !== null || ! Array.isArray(reply)) {
+                    onError(error);
+                } else {
+                    onSuccess(reply.map(function (v) {
+                        return {
+                            'node': v[0],
+                            'distance': v[1],
+                            'location': {
+                                lat: v[2][1],
+                                lon: v[2][0],
+                            }
+                        };
+                    }));
+                }
+            });
     }
 };

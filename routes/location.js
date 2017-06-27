@@ -51,18 +51,26 @@ router.delete('/', function (req, res) {
             'message': 'Internal server error'
         });
     };
-    console.log(req.body);
     location.delete(req.body.node, success, fail);
 });
 
 /* get the k nearest  neighbors */
 router.get('/knn', function (req, res) {
-    res.status(501).json({
-        error: {
-            code: ERROR_NOT_IMPLEMENTED,
-            message: 'This action is not implemented',
-        }
-    });
+    var success = function (deleted) {
+        res.json({
+            'result': deleted
+        });
+    };
+    var fail = function(error) {
+        res.status(500).json({
+            'code': ERROR_INTERNAL_SERVER,
+            'message': 'Internal server error'
+        });
+    };
+    location.knn(
+        req.query.lon, req.query.lat, req.query.radius,
+        req.query.n,
+        success, fail);
 });
 
 module.exports = router;
