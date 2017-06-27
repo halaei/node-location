@@ -1,7 +1,7 @@
 var express = require('express');
 var v = require('../middleware/validators/location');
 var router = express.Router();
-redis = location = require('../services/location');
+var location = require('../services/location');
 
 const ERROR_NOT_IMPLEMENTED = 'not-implemented';
 const ERROR_INTERNAL_SERVER = 'internal-server-error';
