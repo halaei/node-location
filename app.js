@@ -11,10 +11,6 @@ var index = require('./routes/index');
 var location = require('./routes/location');
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -46,6 +42,7 @@ app.use('/location', location);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
+  res.locals.code = 'not-found';
   err.status = 404;
   next(err);
 });
@@ -58,7 +55,13 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+      'code': res.locals.code,
+      'message': res.locals.message,
+      'info': {
+        'stack': res.locals.error ? res.locals.error.stack.split("\n") : null,
+      }
+  });
 });
 
 module.exports = app;
