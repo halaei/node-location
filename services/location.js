@@ -31,8 +31,8 @@ module.exports = {
             ''+location.lon, ''+location.lat, node,
         ], function (error, reply) {
             if (error !== null) {
-                onError(error);
                 console.log(error);
+                onError(error);
             } else {
                 onSuccess(reply);
             }
@@ -42,6 +42,7 @@ module.exports = {
         var list = this.list(node);
         client.lrange([list, 0, n - 1], function (error, reply) {
             if (error !== null) {
+                console.log(error);
                 onError(error);
             } else {
                 if (! Array.isArray(reply)) {
@@ -55,8 +56,16 @@ module.exports = {
     },
     delete: function (node, onSucces, onError) {
         var list = this.list(node);
-        client.del([list], function (error, reply) {
+        client.eval([
+            lua.delete,
+            2,
+            //KEYS[1], KEYS[2]:
+            list,      this.geokey,
+            //ARGV[1]:
+            node
+        ], function (error, reply) {
             if (error !== null) {
+                console.log(error);
                 onError(error);
             } else {
                 onSucces(!!reply);
@@ -71,6 +80,7 @@ module.exports = {
             'COUNT', count,
             'ASC', function (error, reply) {
                 if (error !== null || ! Array.isArray(reply)) {
+                    console.log(error);
                     onError(error);
                 } else {
                     onSuccess(reply.map(function (v) {

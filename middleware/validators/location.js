@@ -59,7 +59,7 @@ module.exports = {
     last: function (req, res, next) {
         req.checkQuery({
             'node': validators.node,
-            'n': validators.n(1, process.env.LOCATION_MAX_LAST_LOCATIONS)
+            'n': validators.n(1, parseInt(process.env.LOCATION_MAX_LAST_LOCATIONS))
         });
         validate(req, res, next);
     },
@@ -73,8 +73,8 @@ module.exports = {
         req.checkQuery({
             'lon': validators.lon,
             'lat': validators.lat,
-            'radius': validators.n(1, process.env.LOCATION_MAX_RADIUS),
-            'n': validators.n(1, process.env.LOCATION_MAX_KNN),
+            'radius': validators.n(1, parseInt(process.env.LOCATION_MAX_RADIUS)),
+            'n': validators.n(1, parseInt(process.env.LOCATION_MAX_KNN)),
         });
         validate(req, res, next);
     }
