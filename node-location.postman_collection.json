@@ -1,0 +1,84 @@
+{
+	"variables": [],
+	"info": {
+		"name": "node-location",
+		"_postman_id": "8f2c9730-4c68-cb11-7385-0768be781267",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"url": "{{node-location-server}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /location",
+			"request": {
+				"url": "{{node-location-server}}/location?node=1&n=5",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /location",
+			"request": {
+				"url": "{{node-location-server}}/location",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"node\": 1,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /location",
+			"request": {
+				"url": "{{node-location-server}}/location",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"node\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /location/knn",
+			"request": {
+				"url": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=100000&n=2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
