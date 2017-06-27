@@ -1,5 +1,9 @@
 var redis = require('redis');
-var client = redis.createClient();
+var client = redis.createClient({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    db: process.env.REDIS_DB
+});
 var lua = require('./lua');
 
 client.on('error', function (err) {
@@ -7,8 +11,8 @@ client.on('error', function (err) {
 });
 
 module.exports = {
-    list_size: 3,
-    list_ttl: 3600 * 24,
+    list_size: process.env.LOCATION_LISTS_SIZE,
+    list_ttl: process.env.LOCATION_LISTS_TTL,
     geokey: 'cur',
     list: function (node) {
         return 'nd:'+node;

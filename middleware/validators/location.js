@@ -44,15 +44,6 @@ var validators = {
                 errorMessage: 'Must be between '+min+' and '+max,
             }
         };
-    },
-    radius: {
-        isInt: {
-            errorMessage: INVALID_INT
-        },
-        inRange: {
-            options: [0, 10000],
-            errorMessage: 'Must be between 0 and 10000',
-        }
     }
 };
 
@@ -68,7 +59,7 @@ module.exports = {
     last: function (req, res, next) {
         req.checkQuery({
             'node': validators.node,
-            'n': validators.n(1, 10000)
+            'n': validators.n(1, process.env.LOCATION_MAX_LAST_LOCATIONS)
         });
         validate(req, res, next);
     },
@@ -82,8 +73,8 @@ module.exports = {
         req.checkQuery({
             'lon': validators.lon,
             'lat': validators.lat,
-            'radius': validators.radius,
-            'n': validators.n(1, 100),
+            'radius': validators.n(1, process.env.LOCATION_MAX_RADIUS),
+            'n': validators.n(1, process.env.LOCATION_MAX_KNN),
         });
         validate(req, res, next);
     }
