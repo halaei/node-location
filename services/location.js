@@ -1,26 +1,63 @@
 var client = require('./redis');
+var lua = require('./lua');
+var Node = require('../models/node');
+
+var geokey = 'cur';
+function geoStateKey(state) {
+    return 'cur:'+state;
+}
+function nodeKey(id) {
+    return 'nd:'+id;
+}
 
 module.exports = {
-    geokey: 'cur',
-    setLocation: function (node, location) {
-        return client.geoaddAsync([this.geokey, ''+location.lon, ''+location.lat, node]);
-    },
-    getLocation: function (node) {
-        return client.geoposAsync([this.geokey, node]).then(function (reply) {
-            return reply.map(function (v) {
-                return {
-                    lat: v[1],
-                    lon: v[0]
-                }
-            });
+    setNodeLocation: function (nodeId, location) {
+        return client.evalAsync(
+            lua.setNodeLocation,
+            // Keys:
+            2,
+            //KEYS[1],      KEYS[2]:
+            nodeKey(nodeId), geokey,
+            //ARGV[1],  ARGV[2]:
+            nodeId,     JSON.stringify({lat: location.lat, lon: location.lon})
+        ).then(function (result) {
+            console.log(result);
+            return Node.fromJSON(result);
         });
     },
-    delete: function (node) {
-        return client.zremAsync([this.geokey, node]);
+    setNodeState: function (nodeId, state) {
+        return client.evalAsync(
+            lua.setNodeState,
+            // Keys:
+            3,
+            //KEYS[1],      KEYS[2], KEYS[3]:
+            nodeKey(nodeId), geokey, geoStateKey(state),
+            //ARGV[1],  ARGV[2]:
+            nodeId,     JSON.stringify({s:state})
+        ).then(function (result) {
+            return Node.fromJSON(result);
+        });
     },
-    knn: function (lon, lat, radius, count) {
+    getNode: function (nodeId) {
+        return client.getAsync([nodeKey(nodeId)]).then(function (reply) {
+            if (reply === null) {
+                return null;
+            }
+            return Node.fromJSON(reply);
+        });
+    },
+    deleteNode: function (nodeId) {
+        return client.evalAsync(
+            lua.deleteNode,
+            // Keys:
+            2,
+            //KEYS[1],       KEYS[2]:
+            nodeKey(nodeId), geokey
+        );
+    },
+    knn: function (lon, lat, radius, count, state = null) {
         return client.georadiusAsync(
-            this.geokey,
+            state !== null ? geoStateKey(state) : geokey,
             lon, lat, radius, 'm',
             'WITHCOORD', 'WITHDIST',
             'COUNT', count,
@@ -28,7 +65,7 @@ module.exports = {
         ).then(function (reply) {
             return reply.map(function (v) {
                 return {
-                    'node': v[0],
+                    'id': v[0],
                     'distance': v[1],
                     'location': {
                         lat: v[2][1],

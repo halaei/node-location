@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(validator({
     customValidators: {
-      isNode: function (value) {
+      isNodeId: function (value) {
         return ! Array.isArray(value) && ( typeof(value) === 'string' || parseInt(value) === value);
       },
       isLat: function (value) {
@@ -32,6 +32,12 @@ app.use(validator({
       inRange: function (value, min, max) {
         console.log(value, min, max);
         return value >= min && value <= max;
+      },
+      isString: function (value, min, max) {
+        return typeof(value) === 'string' && value.length <= max && value.length >= min;
+      },
+      isNullOrString: function (value, min, max) {
+          return value === null || value === undefined || this.isString(value, min, max);
       }
     }
 }));

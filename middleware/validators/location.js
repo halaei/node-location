@@ -19,8 +19,8 @@ validate = function (req, res, next) {
     });
 };
 var validators = {
-    node: {
-        isNode: {
+    node_id: {
+        isNodeId: {
             errorMessage: INVALID_NODE
         },
     },
@@ -44,27 +44,50 @@ var validators = {
                 errorMessage: 'Must be between '+min+' and '+max,
             }
         };
+    },
+    string: function (min, max) {
+        return {
+            isString: {
+                options: [min, max],
+                errorMessage: 'The length must be between '+min+' and '+max
+            }
+        }
+    },
+    nullOrString: function (min, max) {
+        return {
+            isNullOrString: {
+                options: [min, max],
+                errorMessage: 'Must be null or a string of length between '+min+' and '+max
+            }
+        }
     }
 };
 
 module.exports = {
-    setLocation: function (req, res, next) {
+    setNodeLocation: function (req, res, next) {
         req.checkBody({
-            'node': validators.node,
+            'id': validators.node_id,
             'location.lat' : validators.lat,
             'location.lon': validators.lon
         });
         validate(req, res, next);
     },
-    getLocation: function (req, res, next) {
-        req.checkQuery({
-            'node': validators.node,
+    setNodeState: function (req, res, next) {
+        req.checkBody({
+            'id': validators.node_id,
+            'state': validators.nullOrString(1, 255),
         });
         validate(req, res, next);
     },
-    delete: function (req, res, next) {
+    getNode: function (req, res, next) {
+        req.checkQuery({
+            'id': validators.node_id,
+        });
+        validate(req, res, next);
+    },
+    deleteNode: function (req, res, next) {
         req.checkBody({
-            'node': validators.node
+            'id': validators.node_id
         });
         validate(req, res, next);
     },
@@ -73,7 +96,8 @@ module.exports = {
             'lon': validators.lon,
             'lat': validators.lat,
             'radius': validators.n(1, parseInt(process.env.LOCATION_MAX_RADIUS)),
-            'n': validators.n(1, parseInt(process.env.LOCATION_MAX_KNN)),
+            'k': validators.n(1, parseInt(process.env.LOCATION_MAX_KNN)),
+            'state': validators.nullOrString(1, 255),
         });
         validate(req, res, next);
     }

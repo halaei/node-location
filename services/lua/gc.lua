@@ -1,0 +1,4 @@
+-- Foreach current_location key geo:
+--       Foreach node in geo:
+--           If node does not exists:
+-- Delete node from geo.
