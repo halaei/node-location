@@ -1,14 +1,7 @@
 var client = require('./redis');
 var lua = require('./lua');
 var Node = require('../models/node');
-
-var geokey = 'cur';
-function geoStateKey(state) {
-    return 'cur:'+state;
-}
-function nodeKey(id) {
-    return 'nd:'+id;
-}
+var keys = require('./redis-keys');
 
 module.exports = {
     setNodeLocation: function (nodeId, location) {
@@ -16,8 +9,8 @@ module.exports = {
             lua.setNodeLocation,
             // Keys:
             2,
-            //KEYS[1],      KEYS[2]:
-            nodeKey(nodeId), geokey,
+            //KEYS[1],            KEYS[2]:
+            keys.nodeKey(nodeId), keys.geokey,
             //ARGV[1],  ARGV[2]:
             nodeId,     JSON.stringify({lat: location.lat, lon: location.lon})
         ).then(function (result) {
@@ -30,8 +23,8 @@ module.exports = {
             lua.setNodeState,
             // Keys:
             3,
-            //KEYS[1],      KEYS[2], KEYS[3]:
-            nodeKey(nodeId), geokey, geoStateKey(state),
+            //KEYS[1],            KEYS[2],     KEYS[3]:
+            keys.nodeKey(nodeId), keys.geokey, keys.geoStateKey(state),
             //ARGV[1],  ARGV[2]:
             nodeId,     JSON.stringify({s:state})
         ).then(function (result) {
@@ -39,7 +32,7 @@ module.exports = {
         });
     },
     getNode: function (nodeId) {
-        return client.getAsync([nodeKey(nodeId)]).then(function (reply) {
+        return client.getAsync([keys.nodeKey(nodeId)]).then(function (reply) {
             if (reply === null) {
                 return null;
             }
@@ -51,13 +44,13 @@ module.exports = {
             lua.deleteNode,
             // Keys:
             2,
-            //KEYS[1],       KEYS[2]:
-            nodeKey(nodeId), geokey
+            //KEYS[1],            KEYS[2]:
+            keys.nodeKey(nodeId), keys.geokey
         );
     },
     knn: function (lon, lat, radius, count, state = null) {
         return client.georadiusAsync(
-            state !== null ? geoStateKey(state) : geokey,
+            state !== null ? keys.geoStateKey(state) : keys.geokey,
             lon, lat, radius, 'm',
             'WITHCOORD', 'WITHDIST',
             'COUNT', count,

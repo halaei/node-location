@@ -15,4 +15,5 @@ if (nd.state) then
     geoStateKey = KEYS[2]..':'..nd.state;
     redis.call('zrem', geoStateKey, nd.id);
 end
+-- todo: delete trip
 return 1;
