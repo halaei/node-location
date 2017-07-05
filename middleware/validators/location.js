@@ -48,7 +48,7 @@ var validators = {
 };
 
 module.exports = {
-    push: function (req, res, next) {
+    setLocation: function (req, res, next) {
         req.checkBody({
             'node': validators.node,
             'location.lat' : validators.lat,
@@ -56,10 +56,9 @@ module.exports = {
         });
         validate(req, res, next);
     },
-    last: function (req, res, next) {
+    getLocation: function (req, res, next) {
         req.checkQuery({
             'node': validators.node,
-            'n': validators.n(1, parseInt(process.env.LOCATION_MAX_LAST_LOCATIONS))
         });
         validate(req, res, next);
     },

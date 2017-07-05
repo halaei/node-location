@@ -6,11 +6,12 @@ var location = require('../services/location');
 const ERROR_INTERNAL_SERVER = 'internal-server-error';
 const MSG_INTERNAL_ERROR = 'Internal server error';
 
-/* push location of a node. */
-router.post('/', v.push, function(req, res, next) {
-    var success = function (len) {
+
+/* set current location of a node. */
+router.post('/', v.setLocation, function(req, res, next) {
+    var success = function (inserted) {
         res.json({
-            'result': len
+            'result': inserted
         });
     };
     var fail = function(error) {
@@ -20,12 +21,12 @@ router.post('/', v.push, function(req, res, next) {
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.push(req.body.node, req.body.location)
+    location.setLocation(req.body.node, req.body.location)
         .then(success, fail);
 });
 
-/* get the last n location of a node */
-router.get('/', v.last, function (req, res) {
+/* get the current location of a node */
+router.get('/', v.getLocation, function (req, res) {
     var success = function (locations) {
         res.json({
             'result': locations
@@ -38,7 +39,7 @@ router.get('/', v.last, function (req, res) {
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.last(req.query.node, req.query.n)
+    location.getLocation(req.query.node, req.query.n)
         .then(success, fail);
 });
 
