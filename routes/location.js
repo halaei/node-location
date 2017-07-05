@@ -3,7 +3,6 @@ var v = require('../middleware/validators/location');
 var router = express.Router();
 var location = require('../services/location');
 
-const ERROR_NOT_IMPLEMENTED = 'not-implemented';
 const ERROR_INTERNAL_SERVER = 'internal-server-error';
 const MSG_INTERNAL_ERROR = 'Internal server error';
 
@@ -15,12 +14,14 @@ router.post('/', v.push, function(req, res, next) {
         });
     };
     var fail = function(error) {
+        console.log(error);
         res.status(500).json({
             'code': ERROR_INTERNAL_SERVER,
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.push(req.body.node, req.body.location, success, fail);
+    location.push(req.body.node, req.body.location)
+        .then(success, fail);
 });
 
 /* get the last n location of a node */
@@ -31,28 +32,31 @@ router.get('/', v.last, function (req, res) {
         });
     };
     var fail = function(error) {
+        console.log(error);
         res.status(500).json({
             'code': ERROR_INTERNAL_SERVER,
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.last(req.query.node, req.query.n, success, fail);
+    location.last(req.query.node, req.query.n)
+        .then(success, fail);
 });
 
 /* drop location of a node */
 router.delete('/', v.delete, function (req, res) {
     var success = function (deleted) {
         res.json({
-            'result': deleted
+            'result': !! deleted
         });
     };
     var fail = function(error) {
+        console.log(error);
         res.status(500).json({
             'code': ERROR_INTERNAL_SERVER,
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.delete(req.body.node, success, fail);
+    location.delete(req.body.node).then(success, fail);
 });
 
 /* get the k nearest  neighbors */
@@ -63,15 +67,14 @@ router.get('/knn', v.knn, function (req, res) {
         });
     };
     var fail = function(error) {
+        console.log(error);
         res.status(500).json({
             'code': ERROR_INTERNAL_SERVER,
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.knn(
-        req.query.lon, req.query.lat, req.query.radius,
-        req.query.n,
-        success, fail);
+    location.knn(req.query.lon, req.query.lat, req.query.radius, req.query.n)
+        .then(success, fail);
 });
 
 module.exports = router;

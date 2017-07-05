@@ -3,18 +3,12 @@ var chaiHttp = require('chai-http');
 var app = require('../bin/www');
 var expect = chai.expect;
 
-var redis = require('redis');
-var client = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    db: process.env.REDIS_DB
-});
-
+var redis = require('../services/redis');
 chai.use(chaiHttp);
 
 describe('App', function() {
     beforeEach(function () {
-        client.flushdb();
+        return redis.flushdbAsync();
     });
     describe('GET /', function() {
         it('responds with status 200', function(done) {

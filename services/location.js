@@ -1,14 +1,6 @@
-var redis = require('redis');
-var client = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    db: process.env.REDIS_DB
-});
-var lua = require('./lua');
+var client = require('./redis');
 
-client.on('error', function (err) {
-    console.log(err);
-});
+var lua = require('./lua');
 
 module.exports = {
     list_size: process.env.LOCATION_LISTS_SIZE,
@@ -17,10 +9,9 @@ module.exports = {
     list: function (node) {
         return 'nd:'+node;
     },
-    push: function (node, location, onSuccess, onError) {
-        console.log(location.lon, location.lat, node);
+    push: function (node, location) {
         var list = this.list(node);
-        client.eval([
+        return client.evalAsync([
             lua.push,
             2,
             //KEYS[1], KEYS[2]:
@@ -29,71 +20,45 @@ module.exports = {
             JSON.stringify(location), this.list_size, this.list_ttl,
             //ARGV[4],       ARGV[5],          ARGV[6]:
             ''+location.lon, ''+location.lat, node,
-        ], function (error, reply) {
-            if (error !== null) {
-                console.log(error);
-                onError(error);
-            } else {
-                onSuccess(reply);
-            }
+        ]);
+    },
+    last: function (node, n) {
+        var list = this.list(node);
+        return client.lrangeAsync([list, 0, n - 1]).then(function (reply) {
+            return reply.map(function (v) {
+                return JSON.parse(v);
+            });
         });
     },
-    last: function (node, n, onSuccess, onError) {
+    delete: function (node) {
         var list = this.list(node);
-        client.lrange([list, 0, n - 1], function (error, reply) {
-            if (error !== null) {
-                console.log(error);
-                onError(error);
-            } else {
-                if (! Array.isArray(reply)) {
-                    reply = [];
-                }
-                onSuccess(reply.map(function (v) {
-                    return JSON.parse(v);
-                }));
-            }
-        });
-    },
-    delete: function (node, onSucces, onError) {
-        var list = this.list(node);
-        client.eval([
+        return client.evalAsync([
             lua.delete,
             2,
             //KEYS[1], KEYS[2]:
             list,      this.geokey,
             //ARGV[1]:
             node
-        ], function (error, reply) {
-            if (error !== null) {
-                console.log(error);
-                onError(error);
-            } else {
-                onSucces(!!reply);
-            }
-        })
+        ]);
     },
-    knn: function (lon, lat, radius, count, onSuccess, onError) {
-        client.georadius(
+    knn: function (lon, lat, radius, count) {
+        return client.georadiusAsync(
             this.geokey,
             lon, lat, radius, 'm',
             'WITHCOORD', 'WITHDIST',
             'COUNT', count,
-            'ASC', function (error, reply) {
-                if (error !== null || ! Array.isArray(reply)) {
-                    console.log(error);
-                    onError(error);
-                } else {
-                    onSuccess(reply.map(function (v) {
-                        return {
-                            'node': v[0],
-                            'distance': v[1],
-                            'location': {
-                                lat: v[2][1],
-                                lon: v[2][0],
-                            }
-                        };
-                    }));
-                }
+            'ASC'
+        ).then(function (reply) {
+            return reply.map(function (v) {
+                return {
+                    'node': v[0],
+                    'distance': v[1],
+                    'location': {
+                        lat: v[2][1],
+                        lon: v[2][0],
+                    }
+                };
             });
+        });
     }
 };
