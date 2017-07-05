@@ -16,23 +16,12 @@
 				"body": {},
 				"description": ""
 			},
-			"response": []
-		},
-		{
-			"name": "GET /location",
-			"request": {
-				"url": "{{node-location-server}}/location?node=1&n=5000",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": ""
-			},
 			"response": [
 				{
-					"id": "e7a3d38d-76e8-4af4-afb6-8eb2b30fe6c7",
-					"name": "success",
+					"id": "07886b62-fca0-4cbe-9f08-6f0ce30b39a4",
+					"name": "Success",
 					"originalRequest": {
-						"url": "{{node-location-server}}/location?node=1&n=5",
+						"url": "{{node-location-server}}",
 						"method": "GET",
 						"header": [],
 						"body": {}
@@ -51,7 +40,7 @@
 						{
 							"name": "Content-Length",
 							"key": "Content-Length",
-							"value": "128",
+							"value": "45",
 							"description": "The length of the response body in octets (8-bit bytes)"
 						},
 						{
@@ -63,13 +52,13 @@
 						{
 							"name": "Date",
 							"key": "Date",
-							"value": "Tue, 27 Jun 2017 11:21:50 GMT",
+							"value": "Wed, 05 Jul 2017 13:20:53 GMT",
 							"description": "The date and time that the message was sent"
 						},
 						{
 							"name": "ETag",
 							"key": "ETag",
-							"value": "W/\"80-1PzERYqR5bqtnMCLXxL0Fi1JNAc\"",
+							"value": "W/\"2d-LhgMaLTcaeG68+xo0OgJu6C5Kq4\"",
 							"description": "An identifier for a specific version of a resource, often a message digest"
 						},
 						{
@@ -80,14 +69,98 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": 95,
-					"body": "{\"result\":[{\"lat\":6.1234,\"lon\":6.1234},{\"lat\":[6.1234],\"lon\":6.1234},{\"lat\":[6.1234],\"lon\":6.1234},{\"lat\":6.1234,\"lon\":6.1234}]}"
+					"responseTime": 558,
+					"body": "{\"result\":\"Location service up and running!\"}"
+				}
+			]
+		},
+		{
+			"name": "GET /location",
+			"request": {
+				"url": "{{node-location-server}}/location",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": [
+				{
+					"id": "47da7f3e-2a4d-4748-9b51-c2f2dd5575d7",
+					"name": "not found",
+					"originalRequest": {
+						"url": {
+							"raw": "{{node-location-server}}/location?id=1",
+							"host": [
+								"{{node-location-server}}"
+							],
+							"path": [
+								"location"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "15",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:36:04 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"f-0TSleP8O7o+ir9OWbTSM/93SxlI\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 52,
+					"body": "{\"result\":null}"
 				},
 				{
-					"id": "d86bfc7f-d4b5-4544-af48-57218f92e24a",
+					"id": "912df27d-b980-45bb-85ec-d51f7c6eefb9",
 					"name": "422",
 					"originalRequest": {
-						"url": "{{node-location-server}}/location?node=1&n=5000",
+						"url": "{{node-location-server}}/location",
 						"method": "GET",
 						"header": [],
 						"body": {}
@@ -106,7 +179,7 @@
 						{
 							"name": "Content-Length",
 							"key": "Content-Length",
-							"value": "130",
+							"value": "122",
 							"description": "The length of the response body in octets (8-bit bytes)"
 						},
 						{
@@ -118,13 +191,13 @@
 						{
 							"name": "Date",
 							"key": "Date",
-							"value": "Tue, 27 Jun 2017 11:22:07 GMT",
+							"value": "Wed, 05 Jul 2017 13:36:28 GMT",
 							"description": "The date and time that the message was sent"
 						},
 						{
 							"name": "ETag",
 							"key": "ETag",
-							"value": "W/\"82-wSEwThfqjyyvWmBeKh66V5aVrj0\"",
+							"value": "W/\"7a-p3lW+EORlZP6dEuo4ujqAL0Xlbs\"",
 							"description": "An identifier for a specific version of a resource, often a message digest"
 						},
 						{
@@ -135,8 +208,152 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": 94,
-					"body": "{\"code\":\"invalid-input\",\"message\":\"The input is invalid\",\"info\":[{\"param\":\"n\",\"msg\":\"Must be between 1 and 1000\",\"value\":\"5000\"}]}"
+					"responseTime": 81,
+					"body": "{\"code\":\"invalid-input\",\"message\":\"The input is invalid\",\"info\":[{\"param\":\"id\",\"msg\":\"Node must be a string or integer\"}]}"
+				},
+				{
+					"id": "24703abb-229a-49f7-a17c-899348bcb5da",
+					"name": "found(no state)",
+					"originalRequest": {
+						"url": {
+							"raw": "{{node-location-server}}/location?id=3",
+							"host": [
+								"{{node-location-server}}"
+							],
+							"path": [
+								"location"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "77",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:37:03 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"4d-pdd+qKjv/zKyfSGZMBX9asjyvwo\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 56,
+					"body": "{\n    \"result\": {\n        \"id\": \"3\",\n        \"state\": null,\n        \"location\": {\n            \"lon\": 6.1234,\n            \"lat\": 6.1244\n        }\n    }\n}"
+				},
+				{
+					"id": "08e9c43f-a87d-4fea-98f3-864e5fb1d9a9",
+					"name": "success (found)",
+					"originalRequest": {
+						"url": {
+							"raw": "{{node-location-server}}/location?id=3",
+							"host": [
+								"{{node-location-server}}"
+							],
+							"path": [
+								"location"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "73",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 14:51:52 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"49-dQHL7ATMJuOkYMHV/YaIOJG/ebE\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 47,
+					"body": "{\"result\":{\"id\":\"3\",\"state\":null,\"location\":{\"lon\":6.1234,\"lat\":6.1234}}}"
 				}
 			]
 		},
@@ -154,14 +371,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"node\": 3,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
+					"raw": "{\n\t\"id\": 3,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
 				},
 				"description": ""
 			},
 			"response": [
 				{
-					"id": "719fdbd3-c110-4111-ac3c-fefe0e4c7b74",
-					"name": "success",
+					"id": "93ec5e41-1fb2-4752-b525-0e5ade46e3e1",
+					"name": "success (no state)",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location",
 						"method": "POST",
@@ -169,13 +386,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"enabled": true,
-								"description": "The mime type of this content"
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"node\": 3,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
+							"raw": "{\n\t\"id\": 3,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
 						}
 					},
 					"status": "OK",
@@ -192,7 +408,7 @@
 						{
 							"name": "Content-Length",
 							"key": "Content-Length",
-							"value": "12",
+							"value": "77",
 							"description": "The length of the response body in octets (8-bit bytes)"
 						},
 						{
@@ -204,13 +420,13 @@
 						{
 							"name": "Date",
 							"key": "Date",
-							"value": "Tue, 27 Jun 2017 11:25:38 GMT",
+							"value": "Wed, 05 Jul 2017 13:34:14 GMT",
 							"description": "The date and time that the message was sent"
 						},
 						{
 							"name": "ETag",
 							"key": "ETag",
-							"value": "W/\"c-1NZeDUKsGmdlFtyJUyxCSa0z80c\"",
+							"value": "W/\"4d-kZEPvgEA0iBQRalCmsjaDcA8y3c\"",
 							"description": "An identifier for a specific version of a resource, often a message digest"
 						},
 						{
@@ -221,8 +437,8 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": 71,
-					"body": "{\"result\":2}"
+					"responseTime": 126,
+					"body": "{\n    \"result\": {\n        \"id\": \"3\",\n        \"state\": null,\n        \"location\": {\n            \"lon\": 6.1234,\n            \"lat\": 6.1234\n        }\n    }\n}"
 				}
 			]
 		},
@@ -246,7 +462,7 @@
 			},
 			"response": [
 				{
-					"id": "986cd59e-2f26-44dd-b08b-82b9b2587ec0",
+					"id": "c0c39508-9ebd-4ed3-adad-65d75d01a864",
 					"name": "success",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location",
@@ -255,13 +471,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"enabled": true,
-								"description": "The mime type of this content"
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"node\": 2\n}"
+							"raw": "{\n\t\"id\": 2\n}"
 						}
 					},
 					"status": "OK",
@@ -315,7 +530,43 @@
 		{
 			"name": "GET /location/knn",
 			"request": {
-				"url": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=10000&n=100",
+				"url": {
+					"raw": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=10000&k=100",
+					"host": [
+						"{{node-location-server}}"
+					],
+					"path": [
+						"location",
+						"knn"
+					],
+					"query": [
+						{
+							"key": "lon",
+							"value": "6.2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "lat",
+							"value": "6.1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "radius",
+							"value": "10000",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "k",
+							"value": "100",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -323,10 +574,46 @@
 			},
 			"response": [
 				{
-					"id": "b2046904-a014-4c92-b914-3b022e9f5b31",
+					"id": "f51b34f3-a9cb-4965-85e2-6b16c242d6d0",
 					"name": "success",
 					"originalRequest": {
-						"url": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=10000&n=100",
+						"url": {
+							"raw": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=10000&k=100",
+							"host": [
+								"{{node-location-server}}"
+							],
+							"path": [
+								"location",
+								"knn"
+							],
+							"query": [
+								{
+									"key": "lon",
+									"value": "6.2",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "lat",
+									"value": "6.1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "radius",
+									"value": "10000",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "k",
+									"value": "100",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {}
@@ -375,7 +662,321 @@
 					],
 					"cookie": [],
 					"responseTime": 71,
-					"body": "{\"result\":[{\"node\":\"1\",\"distance\":\"8862.3339\",\"location\":{\"lat\":\"6.1234009218608918\",\"lon\":\"6.12340003252029419\"}}]}"
+					"body": "{\n    \"result\": [\n        {\n            \"node\": \"1\",\n            \"distance\": \"8862.3339\",\n            \"location\": {\n                \"lat\": 6.1234009218608918,\n                \"lon\": 6.12340003252029419\n            }\n        }\n    ]\n}"
+				},
+				{
+					"id": "94a73926-5ac5-4f3a-b9aa-040f2a9713c8",
+					"name": "success",
+					"originalRequest": {
+						"url": {
+							"raw": "{{node-location-server}}/location/knn?lon=6.2&lat=6.1&radius=10000&k=100",
+							"host": [
+								"{{node-location-server}}"
+							],
+							"path": [
+								"location",
+								"knn"
+							],
+							"query": [
+								{
+									"key": "lon",
+									"value": "6.2",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "lat",
+									"value": "6.1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "radius",
+									"value": "10000",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "k",
+									"value": "100",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"description": "",
+								"warning": "",
+								"disabled": true
+							}
+						],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "115",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:38:58 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"73-Lmm5RCUjNC9YvyA0DiBovEyV/h4\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 91,
+					"body": "{\n    \"result\": [\n        {\n            \"id\": \"3\",\n            \"distance\": \"8895.5833\",\n            \"location\": {\n                \"lat\": 6.12439960199767341,\n                \"lon\": 6.12340003252029419\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "POST /location/state",
+			"request": {
+				"url": "{{node-location-server}}/location/state",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 3,\n\t\"state\": null\n}"
+				},
+				"description": "Set node state"
+			},
+			"response": [
+				{
+					"id": "e19a5c05-23ef-46d5-9687-11b5420bce4c",
+					"name": "422",
+					"originalRequest": {
+						"url": "{{node-location-server}}/location/state",
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"description": "",
+								"warning": "",
+								"disabled": true
+							}
+						],
+						"body": {}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "122",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:43:13 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"7a-p3lW+EORlZP6dEuo4ujqAL0Xlbs\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 71,
+					"body": "{\"code\":\"invalid-input\",\"message\":\"The input is invalid\",\"info\":[{\"param\":\"id\",\"msg\":\"Node must be a string or integer\"}]}"
+				},
+				{
+					"id": "6d5fffe0-5cda-40d9-8c7f-431ec65e6087",
+					"name": "success",
+					"originalRequest": {
+						"url": "{{node-location-server}}/location/state",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 3,\n\t\"state\": \"ready\"\n}"
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "80",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:45:15 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"50-abXY0pcX9WMWUb3gXSKgIOpkKfU\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 234,
+					"body": "{\"result\":{\"id\":\"3\",\"state\":\"ready\",\"location\":{\"lon\":\"6.1234\",\"lat\":\"6.1244\"}}}"
+				},
+				{
+					"id": "8776622e-bedd-4270-bcef-9086ca8ca2fb",
+					"name": "success (null state)",
+					"originalRequest": {
+						"url": "{{node-location-server}}/location/state",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 3,\n\t\"state\": null\n}"
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "79",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Wed, 05 Jul 2017 13:45:56 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"4f-VAneDhrgi7CTQ9k9yxdyn86BeQw\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 73,
+					"body": "{\"result\":{\"id\":\"3\",\"state\":\"null\",\"location\":{\"lon\":\"6.1234\",\"lat\":\"6.1244\"}}}"
 				}
 			]
 		}

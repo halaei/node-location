@@ -68,8 +68,8 @@ module.exports = {
                     'id': v[0],
                     'distance': v[1],
                     'location': {
-                        lat: v[2][1],
-                        lon: v[2][0],
+                        lat: parseFloat(v[2][1]),
+                        lon: parseFloat(v[2][0]),
                     }
                 };
             });

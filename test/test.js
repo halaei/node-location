@@ -26,7 +26,7 @@ describe('App', function() {
         it('respods with status 200', function(done) {
             chai.request(app)
                 .post('/location').send({
-                    node: 1,
+                    id: 1,
                     location: {
                         lon: 12.12001,
                         lat: 12.13001,
@@ -36,11 +36,11 @@ describe('App', function() {
                     expect(res).to.have.property('body');
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.property('result');
-                    expect(res.body.result).to.equal(1);
+                    expect(res.body.result).to.be.an('object');
                     chai.request(app)
-                        .get('/location').query({node: 1, n: 2}).end(function (err, res) {
+                        .get('/location').query({id: 1}).end(function (err, res) {
                             expect(res).to.have.status(200);
-                            expect(res.body.result).to.have.lengthOf(1);
+                            expect(res.body.result).to.be.an('object');
                             done();
                     });
             })

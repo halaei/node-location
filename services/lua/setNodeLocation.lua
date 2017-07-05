@@ -24,7 +24,7 @@ redis.call('set', KEYS[1], cjson.encode(nd));
 -- Set the location in all current locations.
 redis.call('geoadd', KEYS[2], location.lon, location.lat, ARGV[1]);
 -- If node has state, set the location in the state current locations:
-if (nd.state) then
+if (type(nd.state) == "string") then
     geoStateKey = KEYS[2]..":"..nd.state;
     redis.call('geoadd', geoStateKey, location.lon, location.lat, ARGV[1]);
 end
