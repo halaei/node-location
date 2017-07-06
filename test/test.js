@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe('App', function() {
     beforeEach(function () {
-        return redis.flushdbAsync();
+        return redis.client().flushdbAsync();
     });
     describe('GET /', function() {
         it('responds with status 200', function(done) {

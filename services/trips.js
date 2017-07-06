@@ -5,7 +5,7 @@ var keys = require('./redis-keys');
 module.exports = {
     beginTrip: function (nodeId, tripId) {
         //todo: store previous trip in Elasticsearch
-        return redis.evalAsync(
+        return redis.client().evalAsync(
             lua.beginTrip,
             1,
             //KEYS[1]
@@ -16,7 +16,7 @@ module.exports = {
     },
     endTrip: function (nodeId, tripId) {
         //todo: store in Elasticsearch
-        return redis.evalAsync(
+        return redis.client().evalAsync(
             lua.endTrip,
             1,
             //KEYS[1]
@@ -26,7 +26,7 @@ module.exports = {
         );
     },
     pushLocationToTrip: function (nodeId, tripId, location, time) {
-        return redis.zaddAsync(keys.tripKey(nodeId, tripId), time, JSON.stringify(location));
+        return redis.client().zaddAsync(keys.tripKey(nodeId, tripId), time, JSON.stringify(location));
     },
     getTrip: function (nodeId, tripId) {
         // todo: if current trip: get from redis

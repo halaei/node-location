@@ -1,11 +1,11 @@
-var client = require('./redis');
+var redis = require('./redis');
 var lua = require('./lua');
 var Node = require('../models/node');
 var keys = require('./redis-keys');
 
 module.exports = {
     setNodeLocation: function (nodeId, location) {
-        return client.evalAsync(
+        return redis.client().evalAsync(
             lua.setNodeLocation,
             // Keys:
             2,
@@ -14,12 +14,11 @@ module.exports = {
             //ARGV[1],  ARGV[2]:
             nodeId,     JSON.stringify({lat: location.lat, lon: location.lon})
         ).then(function (result) {
-            console.log(result);
             return Node.fromJSON(result);
         });
     },
     setNodeState: function (nodeId, state) {
-        return client.evalAsync(
+        return redis.client().evalAsync(
             lua.setNodeState,
             // Keys:
             3,
@@ -32,7 +31,7 @@ module.exports = {
         });
     },
     getNode: function (nodeId) {
-        return client.getAsync([keys.nodeKey(nodeId)]).then(function (reply) {
+        return redis.client().getAsync([keys.nodeKey(nodeId)]).then(function (reply) {
             if (reply === null) {
                 return null;
             }
@@ -40,7 +39,7 @@ module.exports = {
         });
     },
     deleteNode: function (nodeId) {
-        return client.evalAsync(
+        return redis.client().evalAsync(
             lua.deleteNode,
             // Keys:
             2,
@@ -49,7 +48,7 @@ module.exports = {
         );
     },
     knn: function (lon, lat, radius, count, state = null) {
-        return client.georadiusAsync(
+        return redis.client().georadiusAsync(
             state !== null ? keys.geoStateKey(state) : keys.geokey,
             lon, lat, radius, 'm',
             'WITHCOORD', 'WITHDIST',
