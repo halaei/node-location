@@ -38,7 +38,11 @@ function getElasticTrip(nodeId, tripId) {
             }
         }
     }).then(function (result) {
-        return result.hits.hits[0] || null;
+        var first = result.hits.hits[0];
+        if (first) {
+            return first._source;
+        }
+        return null;
     });
 }
 module.exports = {

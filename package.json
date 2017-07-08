@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "node node_modules/.bin/mocha"
+    "test": "node node_modules/.bin/mocha",
+    "migrate": "node ./bin/migrate"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
