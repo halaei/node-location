@@ -2,6 +2,7 @@ var express = require('express');
 var v = require('../middleware/validators/location');
 var router = express.Router();
 var location = require('../services/location');
+var nodeStore = require('../services/node-store');
 
 const ERROR_INTERNAL_SERVER = 'internal-server-error';
 const MSG_INTERNAL_ERROR = 'Internal server error';
@@ -57,7 +58,7 @@ router.get('/', v.getNode, function (req, res) {
             'message': MSG_INTERNAL_ERROR
         });
     };
-    location.getNode(req.query.id)
+    nodeStore.get(req.query.id)
         .then(success, fail);
 });
 

@@ -2,7 +2,45 @@ var redis = require('./redis');
 var lua = require('./lua');
 var keys = require('./redis-keys');
 var elastic = require('./elasticsearch');
+var nodeStore = require('./node-store');
 
+function getRedisTrip(nodeId, tripId) {
+    return redis.client().zrangeAsync(keys.tripKey(nodeId, tripId), 0, -1)
+        .then(function (result) {
+            return result.map(function (v) {
+                return JSON.parse(v);
+            });
+        });
+}
+
+function getElasticTrip(nodeId, tripId) {
+    return elastic.search({
+        'index': process.env.ELASTICSEARCH_INDEX,
+        'type': 'trip',
+        'body': {
+            'from': 0,
+            'size': 1,
+            'query': {
+                'bool': {
+                    'must': [
+                        {
+                            'term': {
+                                'node_id': {value: nodeId},
+                            }
+                        },
+                        {
+                            'term': {
+                                'trip_id': {value: tripId},
+                            }
+                        },
+                    ]
+                },
+            }
+        }
+    }).then(function (result) {
+        return result.hits.hits[0] || null;
+    });
+}
 module.exports = {
     beginTrip: function (nodeId, tripId) {
         //todo: store previous trip in Elasticsearch
@@ -19,7 +57,15 @@ module.exports = {
     },
     endTrip: function (nodeId, tripId) {
         var saveInElastic = function (result) {
-
+            elastic.index({
+                'index': process.env.ELASTICSEARCH_INDEX,
+                'type': 'trip',
+                'body': {
+                    'node_id': nodeId,
+                    'trip_id': tripId,
+                    'trace': result,
+                }
+            });
         };
         var endRedisTrip = function () {
             return redis.client().evalAsync(
@@ -31,8 +77,8 @@ module.exports = {
                 nodeId,     tripId
             )
         };
-        return redis.client().zrangeAsync(keys.tripKey(nodeId, tripId), 0, -1)
-            // .then(saveInElastic)
+        return getRedisTrip(nodeId, tripId)
+            .then(saveInElastic)
             .then(endRedisTrip);
     },
     pushLocationToTrip: function (nodeId, tripId, location, time) {
@@ -42,13 +88,16 @@ module.exports = {
         }));
     },
     getTrip: function (nodeId, tripId) {
-        return redis.client().zrangeAsync(keys.tripKey(nodeId, tripId), 0, -1)
-            .then(function (result) {
-                return result.map(function (v) {
-                    return JSON.parse(v);
-                });
-            });
-        // todo: if current trip: get from redis
-        // todo: else: get from elasticsearch.
+        return nodeStore.get(nodeId).then(function (nd) {
+            if (nd === null || nd.trip_id !== tripId) {
+                return null;
+            }
+            return getRedisTrip(nodeId, tripId);
+        }).then (function (trip) {
+            if (trip !== null) {
+                return trip;
+            }
+            return getElasticTrip(nodeId, tripId);
+        });
     }
 };
