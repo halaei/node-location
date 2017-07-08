@@ -2,6 +2,7 @@ var redis = require('./redis');
 var lua = require('./lua');
 var Node = require('../models/node');
 var keys = require('./redis-keys');
+var trips = require('./trips');
 
 module.exports = {
     setNodeLocation: function (nodeId, location) {
@@ -14,7 +15,15 @@ module.exports = {
             //ARGV[1],  ARGV[2]:
             nodeId,     JSON.stringify({lat: location.lat, lon: location.lon})
         ).then(function (result) {
-            return Node.fromJSON(result);
+            return Promise.resolve(Node.fromJSON(result));
+        }).then (function (node) {
+            if (node.trip_id !== null) {
+                return trips.pushLocationToTrip(node.id, node.trip_id, location, new Date().getTime())
+                    .then(function () {
+                        return node;
+                    });
+            }
+            return node;
         });
     },
     setNodeState: function (nodeId, state) {

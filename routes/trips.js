@@ -12,7 +12,7 @@ router.post('/', v.beginEndTrip, function (req, res) {
         });
 });
 
-router.get('/', function (req, res) {
+router.get('/', v.getTrip, function (req, res) {
     trips.getTrip(req.query.node_id, req.query.trip_id)
         .then(function (result) {
             res.json({
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
         });
 });
 
-router.delete('/', v.beginEndTrip, function (req, res) {
+router.post('/end', v.beginEndTrip, function (req, res) {
     trips.endTrip(req.body.node_id, req.body.trip_id)
         .then(function (result) {
             res.json({

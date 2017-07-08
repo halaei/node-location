@@ -13,5 +13,6 @@ module.exports = {
             'node_id': v.validators.node_id,
             'trip_id': v.validators.trip_id,
         });
+        v.validate(req, res, next);
     }
 };
