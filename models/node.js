@@ -1,8 +1,9 @@
 module.exports = class Node {
-    constructor(id, state = null, location = null) {
+    constructor(id, state = null, location = null, trip_id = null) {
         this.id = id;
         this.state = state;
         this.location = location;
+        this.trip_id = trip_id;
     }
 
     static fromJSON(str) {
@@ -10,7 +11,12 @@ module.exports = class Node {
 
     }
     static fromArray(arr) {
-        return new Node(arr['id'], arr['state'] || null, arr['location'] || null);
+        return new Node(
+            arr['id'],
+            arr['state'] || null,
+            arr['location'] || null,
+            arr['trip_id'] || null
+        );
     }
     toJson() {
         return JSON.stringify(this);
