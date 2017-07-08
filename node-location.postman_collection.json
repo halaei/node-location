@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "node-location",
-		"_postman_id": "8f2c9730-4c68-cb11-7385-0768be781267",
+		"_postman_id": "84f58849-19da-8a4a-700b-63d55490b118",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -13,18 +13,25 @@
 				"url": "{{node-location-server}}",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": [
 				{
-					"id": "07886b62-fca0-4cbe-9f08-6f0ce30b39a4",
+					"id": "6e287959-3796-4f83-8682-872ec83ac018",
 					"name": "Success",
 					"originalRequest": {
 						"url": "{{node-location-server}}",
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -75,17 +82,31 @@
 			]
 		},
 		{
+			"name": "GET /ping",
+			"request": {
+				"url": "{{node-location-server}}/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Ping redis and elasticsearch"
+			},
+			"response": []
+		},
+		{
 			"name": "GET /location",
 			"request": {
 				"url": "{{node-location-server}}/location",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": [
 				{
-					"id": "47da7f3e-2a4d-4748-9b51-c2f2dd5575d7",
+					"id": "34bfd983-7af8-45da-a228-b49684546a79",
 					"name": "not found",
 					"originalRequest": {
 						"url": {
@@ -108,7 +129,11 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -157,13 +182,17 @@
 					"body": "{\"result\":null}"
 				},
 				{
-					"id": "912df27d-b980-45bb-85ec-d51f7c6eefb9",
+					"id": "4fdde583-60f2-4449-b9d5-946a8a0b5f27",
 					"name": "422",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location",
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "Unprocessable Entity",
 					"code": 422,
@@ -212,7 +241,7 @@
 					"body": "{\"code\":\"invalid-input\",\"message\":\"The input is invalid\",\"info\":[{\"param\":\"id\",\"msg\":\"Node must be a string or integer\"}]}"
 				},
 				{
-					"id": "24703abb-229a-49f7-a17c-899348bcb5da",
+					"id": "60ff0138-c65f-490b-ba33-8a867cf55998",
 					"name": "found(no state)",
 					"originalRequest": {
 						"url": {
@@ -235,7 +264,11 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -284,7 +317,7 @@
 					"body": "{\n    \"result\": {\n        \"id\": \"3\",\n        \"state\": null,\n        \"location\": {\n            \"lon\": 6.1234,\n            \"lat\": 6.1244\n        }\n    }\n}"
 				},
 				{
-					"id": "08e9c43f-a87d-4fea-98f3-864e5fb1d9a9",
+					"id": "3999b482-827d-4f4d-a11e-a46203e717d0",
 					"name": "success (found)",
 					"originalRequest": {
 						"url": {
@@ -307,7 +340,11 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -377,7 +414,7 @@
 			},
 			"response": [
 				{
-					"id": "93ec5e41-1fb2-4752-b525-0e5ade46e3e1",
+					"id": "048b8184-735c-4c56-85bb-44da280d9f0c",
 					"name": "success (no state)",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location",
@@ -392,7 +429,8 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"id\": 3,\n\t\"location\": {\n\t\t\"lat\": 6.1234,\n\t\t\"lon\": 6.1234\n\t}\n}\n"
-						}
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -462,7 +500,7 @@
 			},
 			"response": [
 				{
-					"id": "c0c39508-9ebd-4ed3-adad-65d75d01a864",
+					"id": "c0cfa23a-cf95-4d5c-bb41-cb294eab96d7",
 					"name": "success",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location",
@@ -477,7 +515,8 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"id\": 2\n}"
-						}
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -569,12 +608,15 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": [
 				{
-					"id": "f51b34f3-a9cb-4965-85e2-6b16c242d6d0",
+					"id": "f17eb068-e953-4a2c-97d5-e39a78507daa",
 					"name": "success",
 					"originalRequest": {
 						"url": {
@@ -616,7 +658,11 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -665,7 +711,7 @@
 					"body": "{\n    \"result\": [\n        {\n            \"node\": \"1\",\n            \"distance\": \"8862.3339\",\n            \"location\": {\n                \"lat\": 6.1234009218608918,\n                \"lon\": 6.12340003252029419\n            }\n        }\n    ]\n}"
 				},
 				{
-					"id": "94a73926-5ac5-4f3a-b9aa-040f2a9713c8",
+					"id": "1b69d8f7-52ef-4d9a-bea4-b76601578d88",
 					"name": "success",
 					"originalRequest": {
 						"url": {
@@ -715,7 +761,11 @@
 								"disabled": true
 							}
 						],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -785,7 +835,7 @@
 			},
 			"response": [
 				{
-					"id": "e19a5c05-23ef-46d5-9687-11b5420bce4c",
+					"id": "f858aecf-7195-42a1-a006-a6623787c434",
 					"name": "422",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location/state",
@@ -799,7 +849,11 @@
 								"disabled": true
 							}
 						],
-						"body": {}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"status": "Unprocessable Entity",
 					"code": 422,
@@ -848,7 +902,7 @@
 					"body": "{\"code\":\"invalid-input\",\"message\":\"The input is invalid\",\"info\":[{\"param\":\"id\",\"msg\":\"Node must be a string or integer\"}]}"
 				},
 				{
-					"id": "6d5fffe0-5cda-40d9-8c7f-431ec65e6087",
+					"id": "58937dc1-eb5b-4b37-b3a3-1dff0644b78b",
 					"name": "success",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location/state",
@@ -865,7 +919,8 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"id\": 3,\n\t\"state\": \"ready\"\n}"
-						}
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -914,7 +969,7 @@
 					"body": "{\"result\":{\"id\":\"3\",\"state\":\"ready\",\"location\":{\"lon\":\"6.1234\",\"lat\":\"6.1244\"}}}"
 				},
 				{
-					"id": "8776622e-bedd-4270-bcef-9086ca8ca2fb",
+					"id": "61e6967c-3200-4326-bc92-bac1e98c4404",
 					"name": "success (null state)",
 					"originalRequest": {
 						"url": "{{node-location-server}}/location/state",
@@ -930,7 +985,8 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"id\": 3,\n\t\"state\": null\n}"
-						}
+						},
+						"description": ""
 					},
 					"status": "OK",
 					"code": 200,
@@ -977,6 +1033,146 @@
 					"cookie": [],
 					"responseTime": 73,
 					"body": "{\"result\":{\"id\":\"3\",\"state\":\"null\",\"location\":{\"lon\":\"6.1234\",\"lat\":\"6.1244\"}}}"
+				}
+			]
+		},
+		{
+			"name": "POST /trip",
+			"request": {
+				"url": "{{node-location-server}}/trip",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"node_id\": 3,\n\t\"trip_id\": \"oasx2:1\"\n}"
+				},
+				"description": "Begin a trip"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /trip",
+			"request": {
+				"url": {
+					"raw": "{{node-location-server}}/trip?node_id=3&trip_id=oasx2:1",
+					"host": [
+						"{{node-location-server}}"
+					],
+					"path": [
+						"trip"
+					],
+					"query": [
+						{
+							"key": "node_id",
+							"value": "3",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "trip_id",
+							"value": "oasx2:1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get the trip locations"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /trip/end",
+			"request": {
+				"url": "{{node-location-server}}/trip/end",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"node_id\": 3,\n\t\"trip_id\": \"oasx2:1\"\n}"
+				},
+				"description": "End the given trip and persist its locations."
+			},
+			"response": [
+				{
+					"id": "38032748-68fa-4dd2-b720-48ba3fafa563",
+					"name": "ended",
+					"originalRequest": {
+						"url": "{{node-location-server}}/trip/end",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"node_id\": 3,\n\t\"trip_id\": \"oasx2:1\"\n}"
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "12",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sat, 08 Jul 2017 07:57:15 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"c-Zy7x97w4DHX4vQ3VkJrct4+MzdE\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 23,
+					"body": "{\"result\":1}"
 				}
 			]
 		}
